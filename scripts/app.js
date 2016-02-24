@@ -100,30 +100,40 @@ function makeDistortionCurve(amount) {
 
 // grab audio track via XHR for convolver node
 
+// function loadAudio(url, vol){
+//   var audio = new Audio();
+//   audio.src = url;
+//   audio.preload = "auto";
+//   audio.volume = vol;
+//   $(audio).on("loadeddata", ajaxRequest.onload);  // jQuery checking
+//   return audio;
+// }
+
 var soundSource, concertHallBuffer;
 
-ajaxRequest = new XMLHttpRequest();
+// ajaxRequest = new XMLHttpRequest();
 
-ajaxRequest.open('GET', 'http://mdn.github.io/voice-change-o-matic/audio/concert-crowd.ogg', true);
+// ajaxRequest.open('GET', './concert-crowd.ogg', true);
 
-ajaxRequest.responseType = 'arraybuffer';
+// ajaxRequest.responseType = 'arraybuffer';
 
 
-ajaxRequest.onload = function() {
-  var audioData = ajaxRequest.response;
+// ajaxRequest.onload = function() {
+//   console.log(arguments);
+//   var audioData = ajaxRequest.response;
 
-  audioCtx.decodeAudioData(audioData, function(buffer) {
-      concertHallBuffer = buffer;
-      soundSource = audioCtx.createBufferSource();
-      soundSource.buffer = concertHallBuffer;
-    }, function(e){"Error with decoding audio data" + e.err});
+//   audioCtx.decodeAudioData(audioData, function(buffer) {
+//       concertHallBuffer = buffer;
+//       soundSource = audioCtx.createBufferSource();
+//       soundSource.buffer = concertHallBuffer;
+//     }, function(e){"Error with decoding audio data" + e.err});
 
   //soundSource.connect(audioCtx.destination);
   //soundSource.loop = true;
   //soundSource.start();
-}
+// }
 
-ajaxRequest.send();
+// ajaxRequest.send();
 
 // set up canvas context for visualizer
 
