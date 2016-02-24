@@ -33,5 +33,5 @@ installCheck.onsuccess = function() {
 };
 
 } else {
-  button.style.display = "none";
+  if(button)button.style.display = "none";
 }

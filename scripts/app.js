@@ -326,6 +326,7 @@ function voiceMute() {
 }
 
 function RenderNodes(data){
-  
+  console.log('DAT',data);
   document.getElementById("ml-labels").innerHTML=(data.map(function(o){return '<div class="ml-label"><span class="ml-name">Pattern '+o.label+'<p class="ml-value">'+o.p+'</p></span></div>'}).join(''));
 }
+window.RenderNodes=RenderNodes;

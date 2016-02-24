@@ -740,17 +740,19 @@ function test_classifier(count){
 window.DTWClass=new Classifier(dtw,[],euclidean_norm);
 window.cur_lab="1";
 function chkey(e,d){
-    if(/\d/.test(e.key)){
-        console.log('KEY PRESSED, Changing label to ',e.key);
-        window.cur_lab=e.key;
+    console.log('KEY PRESSED, Changing label to ',e);
+
+    if(e.key && /\d/.test(e.key) || /Digit\d/.test(e.code)){
+        console.log('KEY PRESSED, Changing label to ',e.key||e.code);
+        window.cur_lab=e.key||e.code;
     }
-    if(e.key=="r"){
+    if( (e.key && e.key=="r") || e.code=="KeyR"){
         console.log('RUNNING',window.cur_lab);
         DTWClass.run(window.cur_lab)
-    }else if(e.key=="s"){
+    }else if( (e.key && e.key=="s") || e.code=="KeyS"){
         console.log('STORING',window.cur_lab);
         DTWClass.store(window.cur_lab)
-    }else if(e.key=="c"){
+    }else if( (e.key && e.key=="c") || e.code=="KeyC"){
         console.log('CLASSIFY');
         DTWClass.classify();
     }
