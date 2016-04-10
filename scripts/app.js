@@ -191,8 +191,8 @@ function visualize() {
   console.log(visualSetting);
 
   if(visualSetting == "sinewave") {
-    DTWClass.frame_size=256;
-    analyser.fftSize = 2048;
+    DTWClass.frame_size=512;
+    analyser.fftSize = 1024;
     var bufferLength = analyser.fftSize;
     console.log(bufferLength);
     var dataArray = new Uint8Array(bufferLength);
@@ -215,7 +215,7 @@ function visualize() {
 
       var sliceWidth = WIDTH * 1.0 / bufferLength;
       var x = 0;
-
+      // DTWClass.record(window.cur_lab,dataArray);
       for(var i = 0; i < bufferLength; i++) {
    
         var v = dataArray[i] / 128.0;
@@ -256,7 +256,7 @@ function visualize() {
       var barWidth = (WIDTH / bufferLength) * 2.5;
       var barHeight;
       var x = 0;
-
+      DTWClass.record(window.cur_lab,dataArray);
       for(var i = 0; i < bufferLength; i++) {
         barHeight = dataArray[i];
 
@@ -325,8 +325,14 @@ function voiceMute() {
   }
 }
 
-function RenderNodes(data){
+// function RenderNodes(data){
+//   console.log('DAT',data);
+//   document.getElementById("ml-labels").innerHTML=(data.map(function(o){return '<div class="ml-label"><span class="ml-name">Pattern '+o.label+'<p class="ml-value">'+o.p+'</p></span></div>'}).join(''));
+// }
+
+function RenderNodes(data,best){
   console.log('DAT',data);
-  document.getElementById("ml-labels").innerHTML=(data.map(function(o){return '<div class="ml-label"><span class="ml-name">Pattern '+o.label+'<p class="ml-value">'+o.p+'</p></span></div>'}).join(''));
+  console.log('B',best);
+  document.getElementById("ml-labels").innerHTML=(data.map(function(o){return '<div class="ml-label'+(''+o.label.replace('Digit','')==window.cur_lab.replace('Digit','') ? ' selected' : '')+'"><span class="ml-name">Pattern '+o.label+'<p class="ml-value '+(o.p==best ? ' best' : '')+'">'+o.p+'</p></span></div>'}).join(''));
 }
 window.RenderNodes=RenderNodes;

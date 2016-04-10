@@ -390,17 +390,18 @@ function euclidean_distance(a, b) {
         });
     });
 
-
-    if(len(x)==1){
-        path = zeros(len(y)), range(len(y))
-    }else if(len(y) == 1){
-        path = range(len(x)), zeros(len(x))
-    }
-    else{
-        path = _traceback(D0)
-    }
-    dl=D1.length-1
-    return [1-(D1[dl][D1[dl].length-1] / (dl+1+D1[dl].length)), C, D1, path]
+    // var path;
+    // if(len(x)==1){
+    //     path = zeros(len(y)), range(len(y))
+    // }else if(len(y) == 1){
+    //     path = range(len(x)), zeros(len(x))
+    // }
+    // else{
+    //     path = _traceback(D0)
+    // }
+    var dl=D1.length-1
+    // print(D1[dl],1-(D1[dl][D1[dl].length-1]) ,(dl+1+D1[dl].length));
+    return [1-(D1[dl][D1[dl].length-1] / (dl+1+D1[dl].length))]//, C, D1, path]
 }
 
 
@@ -427,195 +428,6 @@ function _traceback(D){
     }
     return [ p.reverse(),q.reverse()]
 }
-function test2(){
-    if(0){ 
-        // 1-D numeric
-        // from sklearn.metrics.pairwise import manhattan_distances
-        x = [0, 0, 1, 1, 2, 4, 2, 1, 2, 0]
-        y = [1, 1, 1, 2, 2, 2, 2, 3, 2, 0]
-        dist_fun = manhattan_distances
-    }else if(0){
-        // 2-D numeric
-        // from sklearn.metrics.pairwise import euclidean_distances
-        x = [[0, 0], [0, 1], [1, 1], [1, 2], [2, 2], [4, 3], [2, 3], [1, 1], [2, 2], [0, 1]]
-        y = [[1, 0], [1, 1], [1, 1], [2, 1], [4, 3], [4, 3], [2, 3], [3, 1], [1, 2], [1, 0]]
-        dist_fun = euclidean_distances
-    }else{
-        // 1-D list of strings
-        // from nltk.metrics.distance import edit_distance
-        //x = ['we', 'shelled', 'clams', 'for', 'the', 'chowder']
-        //y = ['class', 'too']
-        x = ['i', 'soon', 'found', 'myself', 'muttering', 'to', 'the', 'walls']
-        y = ['see', 'drown', 'himself']
-        //x = 'we talked about the situation'.split()
-        //y = 'we talked about the situation'.split()
-        dist_fun = edit_distance
-    }
-    // dist, cost, acc, path = dtw(x, y, dist_fun);
-
-    // vizualize
-    // from matplotlib import pyplot as plt
-    // plt.imshow(cost.T, origin='lower', cmap=plt.cm.Reds, interpolation='nearest')
-    // plt.plot(path[0], path[1], '-o') // relation
-    // plt.xticks(range(len(x)), x)
-    // plt.yticks(range(len(y)), y)
-    // plt.xlabel('x')
-    // plt.ylabel('y')
-    // plt.axis('tight')
-    // plt.title('Minimum distance: {}'.format(dist))
-    // plt.show()
-}
-
-
-
-function test(type){
-    var dist,x,y;
-    if(type=="series"){
-        dist  = euclidean_pdist
-        x     = [0, 0, 1, 1, 2, 4, 2, 1, 2, 0];
-        y     = [1, 1, 1, 2, 2, 2, 2, 3, 2, 0];
-    }else if(type=="string"){
-        dist  = levenshtein;
-        x     = ['i', 'soon', 'found', 'myself', 'muttering', 'to', 'the', 'walls'];
-        y     = ['see', 'drown', 'himself'];
-    }else{
-        dist  = euclidean_pdist
-        x     = [0, 0, 1, 1, 2, 4, 2, 1, 2, 0];
-        y     = [1, 1, 1, 2, 2, 2, 2, 3, 2, 0];
-    }
-    print(dtw(x, y, dist));
-}
-
-// test("string")
-// test()
-// var incoming=[ 3, 8, 14 ,1,2,3,7];
-// var temper=[ 3, 8, 14 ,1,2,3 ];
-// print(dtw(incoming,temper,euclidean_norm));
-// print(dtw([1,2,3,4,55,8,89,22,1],[1,2,3,4,55,6,89,22,0],euclidean_norm))
-// print(dtw(['i','he', 'himself'],['see', 'drown', 'himself'],levenshtein))
-// print(euclidean_norm(80,90))
-/************************************ EXPECTED OUTPUT ************************************/
-
-
-// [ 3.3636363636363638,
-//   [ [ 3, 8, 14 ],
-//     [ 6, 6, 12 ],
-//     [ 11, 10, 13 ],
-//     [ 15, 16, 13 ],
-//     [ 23, 23, 21 ],
-//     [ 26, 27, 28 ],
-//     [ 28, 31, 33 ],
-//     [ 33, 33, 37 ] ],
-//   [ [ 3, 8, 14 ],
-//     [ 6, 6, 12 ],
-//     [ 11, 10, 13 ],
-//     [ 15, 16, 13 ],
-//     [ 23, 23, 21 ],
-//     [ 26, 27, 28 ],
-//     [ 28, 31, 33 ],
-//     [ 33, 33, 37 ] ],
-//   [ [ 0, 1, 2, 3, 4, 5, 6, 7 ], [ 0, 0, 0, 0, 0, 0, 1, 2 ] ] ]
-// [ 0.2,
-//   [ [ 1, 2, 3, 5, 7, 9, 11, 14, 16, 16 ],
-//     [ 2, 2, 3, 5, 7, 9, 11, 14, 16, 16 ],
-//     [ 2, 2, 2, 3, 4, 5, 6, 8, 9, 10 ],
-//     [ 2, 2, 2, 3, 4, 5, 6, 8, 9, 10 ],
-//     [ 3, 3, 3, 2, 2, 2, 2, 3, 3, 5 ],
-//     [ 6, 6, 6, 4, 4, 4, 4, 3, 5, 7 ],
-//     [ 7, 7, 7, 4, 4, 4, 4, 4, 3, 5 ],
-//     [ 7, 7, 7, 5, 5, 5, 5, 6, 4, 4 ],
-//     [ 8, 8, 8, 5, 5, 5, 5, 6, 4, 6 ],
-//     [ 9, 9, 9, 7, 7, 7, 7, 8, 6, 4 ] ],
-//   [ [ 1, 2, 3, 5, 7, 9, 11, 14, 16, 16 ],
-//     [ 2, 2, 3, 5, 7, 9, 11, 14, 16, 16 ],
-//     [ 2, 2, 2, 3, 4, 5, 6, 8, 9, 10 ],
-//     [ 2, 2, 2, 3, 4, 5, 6, 8, 9, 10 ],
-//     [ 3, 3, 3, 2, 2, 2, 2, 3, 3, 5 ],
-//     [ 6, 6, 6, 4, 4, 4, 4, 3, 5, 7 ],
-//     [ 7, 7, 7, 4, 4, 4, 4, 4, 3, 5 ],
-//     [ 7, 7, 7, 5, 5, 5, 5, 6, 4, 4 ],
-//     [ 8, 8, 8, 5, 5, 5, 5, 6, 4, 6 ],
-//     [ 9, 9, 9, 7, 7, 7, 7, 8, 6, 4 ] ],
-//   [ [ 0, 1, 2, 3, 4, 4, 4, 4, 5, 6, 7, 8, 9 ],
-//     [ 0, 0, 1, 2, 3, 4, 5, 6, 7, 8, 8, 8, 9 ] ] ]
-
-
-
-// 0.2 
-
-// [[ 1.  1.  1.  2.  2.  2.  2.  3.  2.  0.]
-//  [ 1.  1.  1.  2.  2.  2.  2.  3.  2.  0.]
-//  [ 0.  0.  0.  1.  1.  1.  1.  2.  1.  1.]
-//  [ 0.  0.  0.  1.  1.  1.  1.  2.  1.  1.]
-//  [ 1.  1.  1.  0.  0.  0.  0.  1.  0.  2.]
-//  [ 3.  3.  3.  2.  2.  2.  2.  1.  2.  4.]
-//  [ 1.  1.  1.  0.  0.  0.  0.  1.  0.  2.]
-//  [ 0.  0.  0.  1.  1.  1.  1.  2.  1.  1.]
-//  [ 1.  1.  1.  0.  0.  0.  0.  1.  0.  2.]
-//  [ 1.  1.  1.  2.  2.  2.  2.  3.  2.  0.]] 
-
-// [[  1.   2.   3.   5.   7.   9.  11.  14.  16.  16.]
-//  [  2.   2.   3.   5.   7.   9.  11.  14.  16.  16.]
-//  [  2.   2.   2.   3.   4.   5.   6.   8.   9.  10.]
-//  [  2.   2.   2.   3.   4.   5.   6.   8.   9.  10.]
-//  [  3.   3.   3.   2.   2.   2.   2.   3.   3.   5.]
-//  [  6.   6.   6.   4.   4.   4.   4.   3.   5.   7.]
-//  [  7.   7.   7.   4.   4.   4.   4.   4.   3.   5.]
-//  [  7.   7.   7.   5.   5.   5.   5.   6.   4.   4.]
-//  [  8.   8.   8.   5.   5.   5.   5.   6.   4.   6.]
-//  [  9.   9.   9.   7.   7.   7.   7.   8.   6.   4.]]
-
-// [[0, 1, 2, 3, 4, 4, 4, 4, 5, 6, 7, 8, 9]
-//  [0, 0, 1, 2, 3, 4, 5, 6, 7, 8, 8, 8, 9]]
-
-
-
-// 3.36363636364 
-
-// [[ 3.  5.  6.]
-//  [ 3.  3.  6.]
-//  [ 5.  4.  7.]
-//  [ 4.  6.  3.]
-//  [ 8.  8.  8.]
-//  [ 3.  4.  7.]
-//  [ 2.  5.  6.]
-//  [ 5.  5.  6.]] 
-
-// [[  3.   8.  14.]
-//  [  6.   6.  12.]
-//  [ 11.  10.  13.]
-//  [ 15.  16.  13.]
-//  [ 23.  23.  21.]
-//  [ 26.  27.  28.]
-//  [ 28.  31.  33.]
-//  [ 33.  33.  37.]] 
-//  [[0, 1, 2, 3, 4, 5, 6, 7],
-//   [0, 0, 0, 0, 0, 0, 1, 2]]
-
-
-// [ 3.3636363636363638,
-
-//   [ [ 3,  8,  14 ],
-//     [ 6,  6,  12 ],
-//     [ 11, 10, 13 ],
-//     [ 15, 16, 13 ],
-//     [ 23, 23, 21 ],
-//     [ 26, 27, 28 ],
-//     [ 28, 31, 33 ],
-//     [ 33, 33, 37 ] ],
-
-//   [ [ 3,  8,  14 ],
-//     [ 6,  6,  12 ],
-//     [ 11, 10, 13 ],
-//     [ 15, 16, 13 ],
-//     [ 23, 23, 21 ],
-//     [ 26, 27, 28 ],
-//     [ 28, 31, 33 ],
-//     [ 33, 33, 37 ] ],
-
-//   [ [ 0, 1, 2, 3, 4, 5, 6, 7 ], 
-//     [ 0, 0, 0, 0, 0, 0, 1, 2 ] ] ]
-
 
 
 
@@ -644,7 +456,7 @@ function Classifier(alg,templates,dist,gap){
     self.stream=[];
     self.labels={}
     self.odds={};
-    self.frame_size=256;
+    self.frame_size=350;
     self.gap=gap || 1;
     self.gap_counter=0;
 
@@ -671,27 +483,34 @@ function Classifier(alg,templates,dist,gap){
     }
 
     self.classify = function(){
-        print(self.labels.k().map(self.run));
+        self.best=0;
+        // print(self.labels);
+        // print(self.labels.k().map(self.run));
         self.odds=self.labels.k().map(function(k,i){return {label:k,p:self.run(k)}; })
-        RenderNodes(self.odds);
+        RenderNodes(self.odds,self.best);
         // self.algo(self.tmp[0], self.labels[label], self.dist)[0]
     }
 
 
     self.store = function(label){
+        label=label+'';
         if(label){
+
             self.labels[label]=[self.tmp.copy()];
             console.log('STORED SAMPLE',self.tmp,self.labels[label]);
         }
     }
     self.run=function(label){
         // console.log('Testing Live',label,self.labels);
-        return self.algo(self.tmp, self.labels[label][0], self.dist)[0];
+        console.log('TMP',self.tmp,'LABEL: '+label+' dat:',self.labels[label]);
+        var v = self.algo(self.tmp.copy(), self.labels[label][0], self.dist)[0];
+        if(v>self.best)self.best=v;
+        return v;
     }
     self.record = function(label,buffer){
-        if(!data)return -1;
-        if(!self.labels[label])self.labels[label]=[];
-        self.labels[label].append(buffer);
+        if(!buffer)return -1;
+        // if(!self.labels[label])self.labels[label]=[];
+        self.tmp=Array.prototype.slice.call(buffer);
 
     }
     self.stream_record = function(data){
@@ -713,45 +532,28 @@ function Classifier(alg,templates,dist,gap){
 
 
 
-function test_classifier(count){
-    var cur_time = Date.now();
-    var templates=[
-        [ 0, 0.9090909090909092, 2.2032085561497325, 3.2032085561497325, 3.6032085561497325, 3.6032085561497325 ],
-        [ 2.9, 0.9090909090909092, 2.2032085561497325, 3.2032085561497325, 3.6032085561497325, 3.6032085561497325 ],
-        [ 0, 0.9090909090909092, 2.2032085561497325, 3.2032085561497325, 3.6032085561497325, 3.6032085597325 ],
-        [0.9090909090909092,2.2032085561497325,3.2032085561497325,1.6032085561497325,3.6032085561497325],
-        [.7397169237358767,2.1315094660917784,2.0771225947577925,2.1173824118549893,1.8916483026964062]];
-    var c=new Classifier(dtw,templates,euclidean_norm);
-    // console.log('C',C);
-    for ( var sky = 1; sky < count; sky++ ) {
-        next=Math.random()*2.2032085561497325+1
-        c.sample(next);
-    }
-    var end_time = Date.now();
 
-    var timeDifference = end_time - cur_time;
-    var differenceDate = new Date(timeDifference * 100);
-    var diffHours = differenceDate.getUTCHours()+ ':' +differenceDate.getUTCMinutes()+ ':' +differenceDate.getUTCSeconds();
-    console.log('Elapsed',diffHours);
-
-
-}
-// test_classifier(50000)
 window.DTWClass=new Classifier(dtw,[],euclidean_norm);
 window.cur_lab="1";
 function chkey(e,d){
-    console.log('KEY PRESSED, Changing label to ',e);
+    // console.log('KEY PRESSED, Changing label to ',e);
 
     if(e.key && /\d/.test(e.key) || /Digit\d/.test(e.code)){
         console.log('KEY PRESSED, Changing label to ',e.key||e.code);
-        window.cur_lab=e.key||e.code;
+        window.cur_lab=e.key||e.code.replace('Digit','');
+        DTWClass.store(window.cur_lab);
+        DTWClass.classify();
+        RenderNodes(DTWClass.odds,self.best);
     }
     if( (e.key && e.key=="r") || e.code=="KeyR"){
         console.log('RUNNING',window.cur_lab);
         DTWClass.run(window.cur_lab)
     }else if( (e.key && e.key=="s") || e.code=="KeyS"){
         console.log('STORING',window.cur_lab);
-        DTWClass.store(window.cur_lab)
+        DTWClass.store(window.cur_lab);
+        DTWClass.classify();
+        RenderNodes(DTWClass.odds,self.best);
+
     }else if( (e.key && e.key=="c") || e.code=="KeyC"){
         console.log('CLASSIFY');
         DTWClass.classify();
